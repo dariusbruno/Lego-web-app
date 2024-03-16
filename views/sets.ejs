@@ -1,0 +1,91 @@
+<!--
+/********************************************************************************
+* WEB322 – Assignment 04
+*
+* I declare that this assignment is my own work in accordance with Seneca's
+* Academic Integrity Policy:
+*
+* https://www.senecacollege.ca/about/policies/academic-integrity-policy.html
+*
+* Name: Darius Bruno Student ID: 047701073 Date: 3/15/2024
+*
+* Published URL: https://prussian-blue-sea-lion-hose.cyclic.app/
+*
+********************************************************************************/
+-->
+
+<%- include('partials/navbar', { page: '/lego/sets' }) %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collection</title>
+  <link rel="stylesheet" href="/css/main.css" />
+</head>
+
+
+
+<body>
+
+
+<div class="container mx-auto">
+  <div class="hero bg-base-200 rounded-lg p-6">
+    <div class="hero-content text-center">
+      <div class="max-w-md">
+        <h1 class="text-5xl font-bold">Collection</h1>
+        <p class="py-6">Browse the entire collection. Click the theme to filter by themes</p>
+        <a href="/" class="btn btn-primary">Home</a>
+        <a href="/lego/sets?theme=Technic" class="btn btn-accent">Technic</a>
+          <a href="/lego/sets?theme=Classic%20Town" class="btn btn-accent">Classic Town</a>
+          <a href="/lego/sets?theme=Supplemental" class="btn btn-accent">Supplemental</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="overflow-x-auto">
+    <table class="table w-full">
+      
+      <thead>
+        <tr>
+          <th>Set Number</th>
+          <th>Name</th>
+          <th>Year</th>
+          <th>Theme</th>
+          <th>Number of Parts</th>
+          <th>Image</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% sets.forEach(set => { %>
+          <tr>
+            <td><%= set.set_num %></td>
+            <td><%= set.name %></td>
+            <td><%= set.year %></td>
+            <td><a href="/lego/sets?theme=<%= set.theme %>" class="btn btn-sm btn-primary"><%= set.theme %></a></td>
+            <td><%= set.num_parts %></td>
+            <td>
+              <img class="w-32 h-32 rounded" src="<%= set.img_url %>" alt="<%= set.name %>" style="width: 128px; height: 128px;">
+            </td>
+            <td><a href="/lego/sets/<%= set.set_num %>" class="btn btn-sm btn-secondary">Details</a></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!--
+/********************************************************************************
+* WEB322 – Assignment 04
+*
+* I declare that this assignment is my own work in accordance with Seneca's
+* Academic Integrity Policy:
+*
+* https://www.senecacollege.ca/about/policies/academic-integrity-policy.html
+*
+* Name: Darius Bruno Student ID: 047701073 Date: 3/15/2024
+*
+* Published URL: https://prussian-blue-sea-lion-hose.cyclic.app/
+*
+********************************************************************************/
+-->
+
+<%- include('partials/navbar', { page: '' }) %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= set.name %></title>
+    <link rel="stylesheet" href="/css/main.css" />
+</head>
+
+<body>
+  <div class="container mx-auto mt-5">
+    <div class="hero bg-base-200 rounded-lg p-6">
+      <div class="hero-content text-center">
+        <div class="max-w-md">
+          <h1 class="text-5xl font-bold"><%= set.name %></h1>
+          <p class="py-6">Below, you will find detailed information about the set:</p>
+          <img src="<%= set.img_url %>" alt="<%= set.name %>" class="w-32 h-32 rounded mx-auto">
+          <div class="text-left mt-4">
+            <p><strong>Set Number:</strong> <%= set.set_num %></p>
+            <p><strong>Year Released:</strong> <%= set.year %></p>
+            <p><strong>Theme:</strong> <%= set.theme %></p>
+            <p><strong>Number of Parts:</strong> <%= set.num_parts %></p>
+          </div>
+          
+          <!-- Quote Section -->
+          <div id="quote" class="mt-4 italic">
+         
+          </div>
+
+          <div class="mt-4">
+            <a class="btn btn-primary btn-sm" href="#" onclick="history.back();return false;">Return</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>  
+  
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+          fetch('https://api.quotable.io/random')
+            .then(response => response.json())
+            .then(data => {
+              const quoteContainer = document.getElementById('quote');
+              quoteContainer.innerHTML = `<p>"${data.content}" - ${data.author}</p>`;
+            })
+            .catch(err => console.error(err));
+        });
+      </script>
+</body>
+</html>
+
+
+
+
+
+

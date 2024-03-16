@@ -38,6 +38,7 @@ const getAllSets = () => {
     return new Promise((resolve, reject) => {
         if (sets.length > 0) {
             resolve(sets);
+            console.log(sets);
         } else {
             reject("Error: Sets array problem");
         }
@@ -49,6 +50,7 @@ const getSetByNum = setNum => {
         const foundSet = sets.find(set => set.set_num === setNum);
         if (foundSet) {
             resolve(foundSet);
+            
         } else {
             reject("Error! No sets have been found with that number.");
         }
@@ -66,11 +68,6 @@ const getSetsByTheme = theme => {
     });
 };
 
-
-//initialize();
-//console.log(getAllSets());
-//console.log(getSetsByTheme("the"));
-//console.log(getSetByNum("4"));
 
 module.exports = {
     initialize,
