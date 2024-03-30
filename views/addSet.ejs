@@ -1,0 +1,68 @@
+<%- include('partials/navbar', { page: '/lego/addSet' }) %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Lego Set</title>
+    <link rel="stylesheet" href="/css/main.css" />
+</head>
+<body>
+    <div class="container mx-auto">
+        <div class="hero bg-base-200 rounded-lg p-6">
+            <div class="hero-content text-center">
+                <div class="max-w-md">
+                    <h1 class="text-5xl font-bold">Add Your Own Set!</h1>
+                    <p class="py-6">If we are missing any, add your own!</p>
+                </div>
+            </div>
+        </div>
+
+        <form method="post" action="/lego/addSet" class="max-w-md mx-auto my-8">
+
+            <div class="form-group">
+                <label for="name">Name</label><br />
+                <input type="text" name="name" id="name" placeholder="Enter set name" required /><br />
+            </div>
+        
+            <div class="form-group">
+                <label for="year">Year</label><br />
+                <input type="number" name="year" id="year" placeholder="Enter release year" required /><br />
+            </div>
+        
+            <div class="form-group">
+                <label for="num_parts">Number of Parts</label><br />
+                <input type="number" name="num_parts" id="num_parts" placeholder="Enter number of parts" required /><br />
+            </div>
+        
+            <div class="form-group">
+                <label for="img_url">Image URL</label><br />
+                <input type="url" name="img_url" id="img_url" placeholder="https://www.google.com" required /><br />
+            </div>
+        
+
+
+
+           <div class="form-group">
+
+            <label for="theme_id">Theme</label><br />
+            <select name="theme_id" id="theme_id" required>
+                <% themes.forEach(theme => { %>
+                    <option value="<%= theme.id %>"><%= theme.name %></option>
+                <% }) %>
+            </select><br />
+            
+            </div>
+
+            <div class="form-group">
+
+                <label for="set_num">Set Number</label><br />
+                <input type="text" name="set_num" id="set_num" placeholder="001-01" required /><br />
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-4">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

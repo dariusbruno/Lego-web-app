@@ -19,6 +19,8 @@ const legoData = require("./modules/legoSets");
 const HTTP_PORT = process.env.PORT || 8080;
 const app = express();
 
+app.use(express.urlencoded({ extended: true }));
+
 app.set('view engine', 'ejs');
 
 app.use(express.static('public'));
@@ -35,6 +37,29 @@ async function startServer() {
             
             res.render("home");
         })
+
+        app.get('/lego/addSet', async (req, res) => {
+            try {
+                const themes = await legoData.getAllThemes();
+                res.render("addSet", { 
+                    themes: themes 
+                });
+            } catch (err) {
+                res.render("500", 
+                { 
+                    message: `Internal Server, cannot get themes: ${err}`
+                });
+            }
+        });
+
+        app.post('/lego/addSet', async (req, res) => {
+            try {
+                await legoData.addSet(req.body);
+                res.redirect('/lego/sets');
+            } catch (err) {
+                res.render("500", { message: `Sorry but an error occured, this error: "${err}"` });
+            }
+        });
 
         app.get('/about', (req, res) => {
             
@@ -96,6 +121,38 @@ async function startServer() {
         });
 
 
+        app.get('/lego/editSet/:setNum', async (req, res) => {
+            try {
+                const set = await legoData.getSetByNum(req.params.setNum);
+                const themes = await legoData.getAllThemes();
+                res.render("editSet", { set: set, themes: themes });
+            } catch (err) {
+                res.status(404).render("404", { 
+                    page: '/404',
+                    message: `Error getting set details: ${err}` 
+                });
+            }
+        });
+        
+        app.post('/lego/editSet', async (req, res) => {
+            try {
+                await legoData.editSet(req.body.set_num, req.body); 
+                res.redirect('/lego/sets');
+            } catch (err) {
+                res.render("500", { 
+                    message: `Error when editing set: ${err}` 
+                });
+            }
+        });
+        
+        app.get('/lego/deleteSet/:setNum', async (req, res) => {
+            try {
+                await legoData.deleteSet(req.params.setNum);
+                res.redirect('/lego/sets');
+            } catch (err) {
+                res.render("500", { message: `Error deleting set: ${err}` });
+            }
+        });
 
         app.get('/lego/sets/num-demo', (req, res) => {
             legoData.getSetByNum("03-1")

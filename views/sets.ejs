@@ -64,7 +64,7 @@
             <td><%= set.set_num %></td>
             <td><%= set.name %></td>
             <td><%= set.year %></td>
-            <td><a href="/lego/sets?theme=<%= set.theme %>" class="btn btn-sm btn-primary"><%= set.theme %></a></td>
+            <td><a href="/lego/sets?theme=<%= set.Theme.name %>" class="btn btn-sm btn-primary"><%= set.Theme.name %></a></td>
             <td><%= set.num_parts %></td>
             <td>
               <img class="w-32 h-32 rounded" src="<%= set.img_url %>" alt="<%= set.name %>" style="width: 128px; height: 128px;">
@@ -77,15 +77,6 @@
   </div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
 
 </body>
 </html>
