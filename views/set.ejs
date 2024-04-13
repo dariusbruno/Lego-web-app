@@ -33,9 +33,12 @@
           <p class="py-6">Below, you will find detailed information about the set:</p>
           <img src="<%= set.img_url %>" alt="<%= set.name %>" class="w-32 h-32 rounded mx-auto">
           <div class="mt-4">
-            <a href="/lego/editSet/<%= set.set_num %>" class="btn btn-success">Edit</a>
+            <% if (session.user) { %>
+              <a href="/lego/editSet/<%= set.set_num %>" class="btn btn-success">Edit</a>
+            <% } %>
             <a class="btn btn-primary btn-sm" href="#" onclick="history.back();return false;">Return</a>
-        </div>
+          </div>
+          
           <div class="text-left mt-4">
             <p><strong>Set Number:</strong> <%= set.set_num %></p>
             <p><strong>Year Released:</strong> <%= set.year %></p>

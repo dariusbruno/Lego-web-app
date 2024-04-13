@@ -1,0 +1,45 @@
+<%- include('partials/navbar', { page: '/userHistory' }) %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User History - Lego Collection</title>
+  <link rel="stylesheet" href="/css/main.css" />
+</head>
+<body>
+<div class="container mx-auto mt-10">
+  <div class="hero bg-base-200 rounded-lg p-6">
+    <div class="hero-content text-center">
+      <div class="max-w-md">
+        <h1 class="text-5xl font-bold">User History</h1>
+        <p class="py-6">Here's a detailed view of your login activity, <%= session.user.userName %> (Email: <%= session.user.email %>)</p>
+      </div>
+    </div>
+  </div>
+
+  <% if (session.user && session.user.loginHistory && Array.isArray(session.user.loginHistory)) { %>
+  <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+          <th scope="col" class="py-3 px-6">Login Date/Time</th>
+          <th scope="col" class="py-3 px-6">Client Information</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% session.user.loginHistory.forEach(function(log) { %>
+          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            <td class="py-4 px-6"><%= new Date(log.dateTime).toLocaleString() %></td>
+            <td class="py-4 px-6"><%= log.userAgent %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+  <% } else { %>
+    <p>No login history available.</p>
+  <% } %>
+</div>
+</body>
+</html>
