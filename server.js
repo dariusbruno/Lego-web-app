@@ -1,5 +1,5 @@
 /********************************************************************************
-* WEB322 – Assignment 05
+* WEB322 – Assignment 06
 *
 * I declare that this assignment is my own work in accordance with Seneca's
 * Academic Integrity Policy:
@@ -52,8 +52,6 @@ app.use(
       next();
     }
   }
-  
-
 
 async function startServer() {
     try {
@@ -144,31 +142,6 @@ async function startServer() {
                     });
                 });
         });
-
-
-        // app.get('/lego/editSet/:setNum', async (req, res) => {
-        //     try {
-        //         const set = await legoData.getSetByNum(req.params.setNum);
-        //         const themes = await legoData.getAllThemes();
-        //         res.render("editSet", { set: set, themes: themes });
-        //     } catch (err) {
-        //         res.status(404).render("404", { 
-        //             page: '/404',
-        //             message: `Error getting set details: ${err}` 
-        //         });
-        //     }
-        // });
-        
-        // app.post('/lego/editSet', async (req, res) => {
-        //     try {
-        //         await legoData.editSet(req.body.set_num, req.body); 
-        //         res.redirect('/lego/sets');
-        //     } catch (err) {
-        //         res.render("500", { 
-        //             message: `Error when editing set: ${err}` 
-        //         });
-        //     }
-        // });
         
         app.get('/lego/editSet/:setNum', ensureLogin, async (req, res) => {
             try {
@@ -203,12 +176,6 @@ async function startServer() {
                 .then(set => res.json(set))
                 .catch(err => res.status(404).send(err));
         });
-
-
-
-
-        
-     
 
         app.get('/register', (req, res) => {            
             res.render('register', {
@@ -264,23 +231,6 @@ async function startServer() {
             }
         });
 
-        // app.post('/login', async (req, res) => {
-        //     req.body.userAgent = req.get('User-Agent');
-        //     try {
-        //         const user = await authData.checkUser(req.body);            
-        //         req.session.user = {
-        //             userName: user.userName,
-        //             email: user.email,
-        //             loginHistory: user.loginHistory || [] // Ensures loginHistory is always an array
-        //         };            
-        //         res.redirect('/lego/sets');
-        //     } catch (err) {
-        //         res.render('login', { errorMessage: err, userName: req.body.userName });
-        //     }
-        // });
-        
-
-        
         app.get('/logout', ensureLogin, (req, res) => {
     
         req.session.reset();
@@ -292,13 +242,6 @@ async function startServer() {
         app.get('/userHistory', ensureLogin, (req, res) => {
             res.render('userHistory');
         });
-
-
-
-
-
-
-
         
         app.use((req, res) => {
             res.status(404).render("404", { 
